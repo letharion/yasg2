@@ -12,6 +12,7 @@ use amethyst::{
 
 mod render;
 mod state;
+mod systems;
 
 fn main() -> amethyst::Result<()> {
     amethyst::start_logger(Default::default());
@@ -37,9 +38,11 @@ fn main() -> amethyst::Result<()> {
             "sprite_sheet_processor",
             &[],
         )
+        .with(systems::MoveProjectilesSystem, "projectile_system", &[])
+        .with(systems::ProjectileCollisionSystem, "collision_system", &[])
         .with_thread_local(render_system);
 
-    let mut game = Application::new(resources, state::MyState, game_data)?;
+    let mut game = Application::new(resources, state::Yasg, game_data)?;
     game.run();
 
     Ok(())
