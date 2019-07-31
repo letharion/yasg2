@@ -20,11 +20,18 @@ impl<'s> System<'s> for MoveProjectilesSystem {
     fn run(&mut self, (mut projectiles, planets, mut locals, time): Self::SystemData) {
         for (projectile, local) in (&mut projectiles, &mut locals).join() {
             for planet in planets.join() {
-                let (x, y) = gravity(planet, projectile);
-                projectile.velocity[0] += x * time.delta_seconds();
-                projectile.velocity[1] += y * time.delta_seconds();
-                projectile.x += projectile.velocity[0];
-                projectile.y += projectile.velocity[1];
+                let dt = time.delta_seconds() * 5.;
+                let new_x = projectile.x + projectile.velocity[0] * dt + projectile.acc[0] * ( dt * dt * 0.5);
+                let new_y = projectile.y + projectile.velocity[1] * dt + projectile.acc[1] * ( dt * dt * 0.5);
+                let (new_acc_x, new_acc_y) = gravity(planet, projectile);
+                let new_vel_x = projectile.velocity[0] + (projectile.acc[0] + new_acc_x) * (dt * 0.5);
+                let new_vel_y = projectile.velocity[1] + (projectile.acc[1] + new_acc_y) * (dt * 0.5);
+
+                projectile.x = new_x;
+                projectile.y = new_y;
+                projectile.velocity = [ new_vel_x, new_vel_y ];
+                projectile.acc = [ new_acc_x, new_acc_y ];
+
                 local.set_translation_x(projectile.x);
                 local.set_translation_y(projectile.y);
             }
