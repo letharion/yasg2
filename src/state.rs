@@ -8,6 +8,10 @@ use amethyst::{
     window::ScreenDimensions,
 };
 
+use crate::{
+    resources::{load_assets, AssetType}
+};
+
 use log::info;
 
 pub struct Yasg;
@@ -18,6 +22,13 @@ impl SimpleState for Yasg {
     // https://book.amethyst.rs/stable/concepts/state.html#life-cycle
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
         let world = data.world;
+
+        load_assets(
+            world,
+            vec![
+                AssetType::Projectile,
+            ],
+        );
 
         // Get the screen dimensions so we can initialize the camera and
         // place our sprites correctly later. We'll clone this since we'll
