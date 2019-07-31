@@ -121,7 +121,8 @@ fn load_sprite2(world: &mut World, dimensions: &ScreenDimensions) {
         .with(sprite.clone())
         .with(transform)
         .with(Projectile {
-            velocity: [0.2, -0.02],
+            velocity: [ 1.2, -0.02 ],
+            acc: [ 0., 0. ],
             radius: 1.,
             x: x,
             y: x,
@@ -217,6 +218,7 @@ pub struct Projectile {
     pub x: f32,
     pub y: f32,
     pub velocity: [f32; 2],
+    pub acc: [f32; 2],
     pub radius: f32,
 }
 
