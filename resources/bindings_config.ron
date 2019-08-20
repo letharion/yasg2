@@ -1,5 +1,5 @@
 (
-  axes: {
+    axes: {
         "run": Emulated(pos: Key(Right), neg: Key(Left)),
     },
     actions: {
@@ -7,7 +7,9 @@
             [Key(Up)]
         ],
         "shoot": [
-            [Key(Space)]
+            [Key(Space)],
+            [Key(A)],
+            [Mouse(Left)],
         ]
     },
 )
