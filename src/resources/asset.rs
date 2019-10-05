@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use amethyst::{
     assets::{AssetStorage, Loader, ProgressCounter},
-    ecs::prelude::World,
+    ecs::{WorldExt, World},
     renderer::{
         formats::texture::ImageFormat,
         sprite::{SpriteSheetFormat, SpriteSheetHandle},
@@ -49,7 +49,7 @@ pub fn load_assets(world: &mut World, asset_type_list: Vec<AssetType>) -> Progre
             }
         };
     }
-    world.add_resource(sprite_sheet_list);
+    world.insert(sprite_sheet_list);
     progress_counter
 }
 
